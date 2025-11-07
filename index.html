@@ -1,123 +1,373 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Manisha Makvana — Laravel & Web Developer</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#4F81FF',
-            pastel: '#E9F2FF'
-          },
-          fontFamily: {
-            heading: ['Poppins', 'ui-sans-serif', 'system-ui'],
-            body: ['Inter', 'ui-sans-serif', 'system-ui']
-          }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Manisha Makvana — Laravel & Web Developer</title>
+
+<!-- Tailwind (ok for quick static hosting like GitHub Pages) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: '#6D8BFF',   /* soft blue */
+          accent:  '#B388FF',   /* purple */
+          daybg1:  '#ECF3FF',
+          daybg2:  '#FFFFFF',
+          night1:  '#0B1026',
+          night2:  '#151C3D'
+        },
+        fontFamily: {
+          heading: ['Poppins', 'ui-sans-serif', 'system-ui'],
+          body:    ['Inter', 'ui-sans-serif', 'system-ui']
+        },
+        boxShadow: {
+          soft: '0 25px 60px rgba(109,139,255,.18)',
+          card: '0 20px 50px rgba(10,15,40,.25)'
         }
       }
     }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <style>
-    .glass {
-      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.65));
-      backdrop-filter: blur(6px);
-    }
-    .btn-soft {
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-    .btn-soft:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(79,129,255,.12); }
-    .avatar-border {
-      box-shadow: 0 10px 40px rgba(79,129,255,.18);
-      border-radius: 22px;
-    }
-  </style>
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', ui-sans-serif, system-ui; overflow-x: hidden; }
+
+  /* --- Backgrounds ------------------------------------------------------ */
+  .day-gradient   { background: radial-gradient(1200px 700px at -10% -10%, #ECF3FF 0%, transparent 60%),
+                               linear-gradient(160deg, var(--day1) 0%, var(--day2) 60%); }
+  .night-gradient { background: radial-gradient(1200px 700px at 110% -20%, rgba(179,136,255,.15) 0%, transparent 55%),
+                               linear-gradient(160deg, var(--night1) 0%, var(--night2) 70%); }
+
+  :root {
+    --day1:#ECF3FF; --day2:#FFFFFF;
+    --night1:#0B1026; --night2:#151C3D;
+  }
+
+  /* Stars canvas never blocks scrolling */
+  #stars, #glowDots {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  }
+
+  /* Blurry glow orbs (blue + purple) */
+  .glow-orb {
+    position: fixed; border-radius: 9999px; filter: blur(70px);
+    opacity: .35; pointer-events: none; z-index: 0;
+    mix-blend-mode: screen;
+    animation: float 16s ease-in-out infinite alternate;
+  }
+  .orb-blue   { background: radial-gradient(circle, rgba(109,139,255,.9), transparent 60%); }
+  .orb-purple { background: radial-gradient(circle, rgba(179,136,255,.9), transparent 60%); }
+  .orb-1 { width: 420px; height: 420px; top: 10%; left: -6%; }
+  .orb-2 { width: 520px; height: 520px; bottom: 8%; right: -8%; animation-delay: .8s; }
+  @keyframes float { from { transform: translateY(0px)} to { transform: translateY(-24px)} }
+
+  /* Cards + chips */
+  .card {
+    @apply rounded-3xl bg-white/90 backdrop-blur border border-white/70 shadow-soft;
+  }
+  .card-night {
+    background: rgba(18,23,50,.45); border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 18px 40px rgba(7,10,25,.55);
+  }
+  .chip {
+    @apply px-4 py-2 rounded-full text-sm font-medium bg-white/80 border border-white/70 backdrop-blur;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .chip:hover { transform: translateY(-3px); box-shadow: 0 0 18px rgba(109,139,255,.55); }
+
+  /* Buttons */
+  .btn    { @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-medium transition; }
+  .btn-p  { @apply text-white; background: linear-gradient(135deg, #6D8BFF, #8AA5FF); }
+  .btn-o  { @apply border border-primary/40 text-primary; }
+  .btn:hover  { transform: translateY(-2px); }
+  .btn-p:hover{ box-shadow: 0 18px 40px rgba(109,139,255,.35); }
+  .btn-o:hover{ background: #6D8BFF; color: white; box-shadow: 0 18px 40px rgba(109,139,255,.35); }
+
+  /* Avatar frame */
+  .avatar-frame {
+    background: linear-gradient(145deg, #fff, #eef1ff);
+    border-radius: 28px; padding: 18px; box-shadow: 0 22px 60px rgba(109,139,255,.22);
+  }
+  .avatar-frame-night {
+    background: linear-gradient(145deg, rgba(26,32,69,.9), rgba(38,46,92,.9));
+    box-shadow: 0 26px 70px rgba(12,18,46,.55);
+  }
+
+  /* Safe area above the fixed backgrounds */
+  main, header, footer { position: relative; z-index: 1; }
+</style>
 </head>
-<body class="bg-gradient-to-b from-pastel to-white text-slate-800 antialiased">
+
+<body class="min-h-screen text-slate-800 day-gradient transition-colors duration-500" data-theme="day">
+  <!-- Blue + Purple glowing stars -->
+  <canvas id="stars"></canvas>
+  <canvas id="glowDots"></canvas>
+  <div class="glow-orb orb-blue  orb-1"></div>
+  <div class="glow-orb orb-purple orb-2"></div>
+
   <!-- NAV -->
-  <header class="max-w-5xl mx-auto p-6 md:px-8 flex items-center justify-between">
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-lg bg-white glass flex items-center justify-center font-heading text-primary">MM</div>
-      <div class="font-heading text-lg">Manisha Makvana</div>
+      <div id="logoBox" class="w-10 h-10 rounded-xl bg-white/90 flex items-center justify-center font-heading text-primary text-sm">MM</div>
+      <span id="brandName" class="font-heading text-[15px] tracking-tight">Manisha Makvana</span>
     </div>
-    <nav class="hidden md:flex gap-6 text-sm">
-      <a href="#about" class="hover:text-primary">About</a>
-      <a href="#projects" class="hover:text-primary">Projects</a>
-      <a href="#skills" class="hover:text-primary">Skills</a>
-      <a href="#contact" class="hover:text-primary">Contact</a>
+
+    <nav class="hidden md:flex gap-7 text-sm">
+      <a class="hover:text-primary" href="#about">About</a>
+      <a class="hover:text-primary" href="#skills">Skills</a>
+      <a class="hover:text-primary" href="#projects">Projects</a>
+      <a class="hover:text-primary" href="#contact">Contact</a>
+      <button id="themeBtn" class="ml-2 btn btn-o">🌞 Daylight</button>
     </nav>
   </header>
 
   <!-- HERO -->
-  <main class="max-w-5xl mx-auto px-6 md:px-8">
-    <section class="grid grid-cols-1 md:grid-cols-2 items-center gap-8 mt-6">
-      <div class="py-8">
-        <h1 class="text-4xl md:text-5xl font-heading leading-tight">
-          I’m <span class="text-primary">Manisha Makvana</span>,
-          <span class="block text-slate-600 text-lg md:text-xl mt-2">Laravel & Web Developer</span>
+  <main class="max-w-6xl mx-auto px-6">
+    <section class="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-10 md:gap-14 items-center">
+      <!-- Left -->
+      <div class="space-y-6">
+        <span id="roleBadge" class="inline-flex items-center text-sm font-medium text-primary bg-primary/10 rounded-full px-4 py-1">
+          Laravel & Web Developer
+        </span>
+
+        <h1 class="font-heading text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.15]">
+          I’m <span class="text-primary">Manisha Makvana</span>,<br class="hidden md:block">
+          crafting modern Laravel apps.
         </h1>
-        <p class="mt-6 text-slate-600 max-w-xl">
-          I build smart, scalable web apps using Laravel, Tailwind CSS, and MySQL.
-          Passionate about clean backend architecture, API development, and real deployments.
+
+        <p id="heroText" class="text-lg text-slate-600 max-w-xl">
+          I build scalable web apps with Laravel, Tailwind CSS, and MySQL —
+          focusing on clean architecture, polished UI, and reliable deployments.
         </p>
-        <div class="mt-6 flex gap-4">
-          <a href="#projects" class="btn-soft bg-primary text-white px-5 py-3 rounded-md shadow-md">View My Work</a>
-          <a href="#contact" class="btn-soft border border-slate-300 px-5 py-3 rounded-md">Contact Me</a>
+
+        <div class="flex flex-wrap gap-4 pt-1">
+          <a href="#projects" class="btn btn-p">View My Work</a>
+          <a href="#contact" class="btn btn-o">Contact Me</a>
+          <button id="audioBtn" class="btn btn-o">🎧 Turn On Vibes</button>
         </div>
       </div>
-      <!-- NEW AVATAR -->
+
+      <!-- Right -->
       <div class="flex justify-center md:justify-end">
-        <img src="assets/manisha-avatar.png" alt="Manisha avatar" class="w-80 md:w-[22rem] avatar-border" />
+        <div id="avatarFrame" class="avatar-frame">
+          <img src="assets/manisha-avatar.png" alt="Manisha anime avatar" class="w-60 sm:w-72 md:w-[21rem] rounded-[22px] object-cover" />
+        </div>
       </div>
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="mt-16 bg-white rounded-2xl shadow-sm p-8">
-      <h2 class="text-2xl font-heading">About Me</h2>
-      <p class="mt-4 text-slate-600 max-w-3xl leading-relaxed">
-        I’m Manisha Makvana, a Laravel Developer currently working at Endunuro.
-        I’ve built real-world applications like LMS, Loan Query System, and LIMS dashboards.
-        My workflow blends AI-assisted coding with structured Laravel architecture and reliable deployment.
-      </p>
+    <section id="about" class="mt-14">
+      <div id="aboutCard" class="card px-7 md:px-10 py-9">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div class="max-w-3xl space-y-3">
+            <h2 class="font-heading text-3xl">About Me</h2>
+            <p id="aboutText" class="leading-7 text-slate-600">
+              I’m a Laravel developer currently working at Endunuro. I’ve built real-world apps like an LMS,
+              a Loan Query System, and LIMS dashboards — handling backend logic, authentication, and deployment.
+              I like pairing **AI-assisted planning** with clean Laravel architecture to ship fast & reliably.
+            </p>
+          </div>
+          <a href="#" class="btn btn-o">Download CV</a>
+        </div>
+      </div>
     </section>
 
     <!-- SKILLS -->
-    <section id="skills" class="mt-10">
-      <h3 class="text-xl font-heading">Skills</h3>
-      <div class="mt-4 flex flex-wrap gap-3">
-        <span class="px-4 py-2 rounded-full bg-white glass">Laravel</span>
-        <span class="px-4 py-2 rounded-full bg-white glass">PHP</span>
-        <span class="px-4 py-2 rounded-full bg-white glass">MySQL</span>
-        <span class="px-4 py-2 rounded-full bg-white glass">Tailwind CSS</span>
-        <span class="px-4 py-2 rounded-full bg-white glass">JavaScript</span>
-        <span class="px-4 py-2 rounded-full bg-white glass">Git & GitHub</span>
-        <span class="px-4 py-2 rounded-full bg-white glass">Hostinger Deployment</span>
+    <section id="skills" class="mt-12 text-center">
+      <h3 class="font-heading text-2xl">Skills</h3>
+      <div id="skillsWrap" class="mt-5 flex flex-wrap justify-center gap-3">
+        <span class="chip">Laravel</span>
+        <span class="chip">PHP</span>
+        <span class="chip">MySQL</span>
+        <span class="chip">Tailwind CSS</span>
+        <span class="chip">Git & GitHub</span>
+        <span class="chip">Hostinger Deployment</span>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="mt-14">
+      <h3 class="font-heading text-3xl text-center">Projects</h3>
+
+      <div class="mt-8 grid md:grid-cols-3 gap-6">
+        <!-- 1 -->
+        <article class="card p-6" id="p1">
+          <h4 class="font-semibold text-lg">Learning Management System (LMS)</h4>
+          <p class="mt-2 text-sm text-slate-600">
+            A platform for managing courses, students, and learning progress.
+          </p>
+           <a class="mt-4 inline-block text-primary font-medium" target="_blank"
+              href="https://github.com/ManishaMakvana">GitHub →</a>
+        </article>
+
+        <!-- 2 -->
+        <article class="card p-6" id="p2">
+          <h4 class="font-semibold text-lg">Loan Query System</h4>
+          <p class="mt-2 text-sm text-slate-600">
+            A system to manage loan requests and workflow tracking.
+          </p>
+           <a class="mt-4 inline-block text-primary font-medium" target="_blank"
+              href="https://github.com/ManishaMakvana">GitHub →</a>
+        </article>
+
+        <!-- 3 -->
+        <article class="card p-6" id="p3">
+          <h4 class="font-semibold text-lg">LIMS Dashboard</h4>
+          <p class="mt-2 text-sm text-slate-600">
+            Laboratory Information Management System with role-based user access.
+          </p>
+           <a class="mt-4 inline-block text-primary font-medium" target="_blank"
+              href="https://github.com/ManishaMakvana">GitHub →</a>
+        </article>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="mt-12 mb-20 bg-white rounded-2xl p-8">
-      <h3 class="text-2xl font-heading">Contact</h3>
-      <p class="mt-3 text-slate-600">Interested in working together?</p>
-      <div class="mt-4 flex flex-col md:flex-row md:items-center gap-4">
-        <a class="inline-flex items-center gap-2 px-4 py-3 rounded-md border border-slate-200" href="mailto:manishamakvana@gmail.com">
-          Email: manishamakvana@gmail.com
-        </a>
+    <section id="contact" class="mt-16 mb-20">
+      <div id="contactCard" class="card px-7 md:px-10 py-10 text-center">
+        <h3 class="font-heading text-3xl">Contact</h3>
+        <p class="mt-3 text-slate-600">Interested in working together?</p>
+         <div class="mt-6 flex justify-center">
+           <span class="inline-flex items-center gap-2 px-5 py-4 rounded-2xl border border-primary/30 bg-white/70 text-slate-700 backdrop-blur">
+             😊 Contact coming soon
+           </span>
+         </div>
       </div>
     </section>
   </main>
 
-  <footer class="text-center py-6 text-sm text-slate-500">
-    © <span id="year"></span> Manisha Makvana
+  <footer class="text-center py-6 text-sm opacity-80">
+    © <span id="year"></span> Manisha Makvana — Built with ✨ Anime Energy
   </footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <!-- LOCAL audio only. Put a small loop at /assets/ambient.mp3 -->
+  <audio id="ambient" src="assets/ambient.mp3" preload="none" loop></audio>
+
+<script>
+/* -------------------- Utilities -------------------- */
+const $ = s => document.querySelector(s);
+const themeBtn  = $('#themeBtn');
+const audioBtn  = $('#audioBtn');
+const ambient   = $('#ambient');
+
+const body      = document.body;
+const stars     = $('#stars');
+const glowDots  = $('#glowDots');
+
+const yearSpan  = $('#year');
+yearSpan.textContent = new Date().getFullYear();
+
+/* --------------- Blue + purple stars ----------------
+   We draw on two canvases so we can layer small/large stars.
+   It never captures pointer events so scrolling is always smooth. */
+function drawStars() {
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+  const w = stars.width = glowDots.width = innerWidth * DPR;
+  const h = stars.height = glowDots.height = innerHeight * DPR;
+
+  [stars, glowDots].forEach(c => { c.style.width = innerWidth + 'px'; c.style.height = innerHeight + 'px'; });
+
+  const ctx1 = stars.getContext('2d');
+  const ctx2 = glowDots.getContext('2d');
+  ctx1.clearRect(0,0,w,h); ctx2.clearRect(0,0,w,h);
+
+  // tiny stars
+  for (let i=0; i<160; i++) {
+    const x = Math.random()*w, y = Math.random()*h;
+    const r = Math.random()*1.4 + .4;
+    ctx1.beginPath();
+    ctx1.fillStyle = (Math.random()>.5) ? 'rgba(179,136,255,.8)' : 'rgba(109,139,255,.8)';
+    ctx1.arc(x,y,r,0,Math.PI*2); ctx1.fill();
+  }
+  // bigger soft glows
+  for (let i=0; i<40; i++) {
+    const x = Math.random()*w, y = Math.random()*h;
+    const r = Math.random()*2.2 + 1.2;
+    const g = ctx2.createRadialGradient(x,y,0,x,y,r*5);
+    (Math.random()>.5)
+      ? g.addColorStop(0,'rgba(179,136,255,.6)')
+      : g.addColorStop(0,'rgba(109,139,255,.6)');
+    g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx2.fillStyle = g;
+    ctx2.beginPath(); ctx2.arc(x,y,r*5,0,Math.PI*2); ctx2.fill();
+  }
+}
+drawStars();
+addEventListener('resize', () => { clearTimeout(window._rst); window._rst=setTimeout(drawStars,150)});
+
+/* ---------------- Theme (Day/Night) ---------------- */
+function applyTheme(mode){
+  if(mode==='night'){
+    body.dataset.theme = 'night';
+    body.classList.remove('day-gradient'); body.classList.add('night-gradient');
+    body.classList.add('text-slate-200'); // lighter text
+    // cards darker
+    document.querySelectorAll('.card').forEach(el=>{
+      el.classList.add('card-night');
+    });
+    document.querySelectorAll('.chip').forEach(el=>{
+      el.style.background='rgba(255,255,255,.08)'; el.style.borderColor='rgba(255,255,255,.15)'; el.style.color='#E7EAFE';
+    });
+    // avatar frame dark
+    document.getElementById('avatarFrame').classList.add('avatar-frame-night');
+    // nav brand
+    document.getElementById('logoBox').style.background='rgba(255,255,255,.1)';
+    document.getElementById('brandName').style.color='#E7EAFE';
+    themeBtn.textContent='🌙 Night Cozy';
+  } else {
+    body.dataset.theme = 'day';
+    body.classList.add('day-gradient'); body.classList.remove('night-gradient');
+    body.classList.remove('text-slate-200');
+    document.querySelectorAll('.card').forEach(el=>{ el.classList.remove('card-night'); });
+    document.querySelectorAll('.chip').forEach(el=>{
+      el.style.background='rgba(255,255,255,.80)'; el.style.borderColor='rgba(255,255,255,.7)'; el.style.color='';
+    });
+    document.getElementById('avatarFrame').classList.remove('avatar-frame-night');
+    document.getElementById('logoBox').style.background='rgba(255,255,255,.90)';
+    document.getElementById('brandName').style.color='';
+    themeBtn.textContent='🌞 Daylight';
+  }
+  localStorage.setItem('mm-theme', mode);
+}
+const saved = localStorage.getItem('mm-theme') || 'day';
+applyTheme(saved);
+themeBtn.addEventListener('click', ()=>{
+  applyTheme( body.dataset.theme==='day' ? 'night' : 'day' );
+});
+
+/* ---------------- Ambient Audio --------------------
+   We *only* use local /assets/ambient.mp3 so 404s won’t happen.
+   If the file is missing or blocked, we fail gracefully. */
+let audioReady = false, isPlaying = false;
+ambient.volume = 0.35;
+
+ambient.addEventListener('canplay', ()=>{ audioReady = true; });
+ambient.addEventListener('error', ()=>{
+  audioBtn.textContent = '⚠️ No Audio (add /assets/ambient.mp3)';
+  audioBtn.disabled = true; audioBtn.classList.add('opacity-60');
+});
+
+audioBtn.addEventListener('click', async ()=>{
+  if(!audioReady){
+    try { await ambient.load(); } catch(_) {}
+  }
+  try {
+    if(!isPlaying){
+      await ambient.play();
+      isPlaying = true; audioBtn.textContent = '🔇 Pause Vibes';
+    }else{
+      ambient.pause(); isPlaying = false; audioBtn.textContent = '🎧 Turn On Vibes';
+    }
+  } catch (e) {
+    // Never block scrolling—just show a friendly label
+    audioBtn.textContent = '⚠️ Tap again to allow sound';
+  }
+});
+</script>
 </body>
 </html>
-
