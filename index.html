@@ -5,18 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Manisha Makvana — Laravel & Web Developer</title>
 
-  <!-- Tailwind CDN (good for quick static sites / GitHub Pages) -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- small Tailwind config -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             primary: '#4F81FF',
-            pastel: '#E9F2FF',
-            blush: '#F7E6F0'
+            pastel: '#E9F2FF'
           },
           fontFamily: {
             heading: ['Poppins', 'ui-sans-serif', 'system-ui'],
@@ -27,11 +23,9 @@
     }
   </script>
 
-  <!-- Google fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* small custom styles */
     .glass {
       background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.65));
       backdrop-filter: blur(6px);
@@ -40,8 +34,11 @@
       transition: transform .15s ease, box-shadow .15s ease;
     }
     .btn-soft:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(79,129,255,.12); }
-    /* make image look like soft anime avatar */
-    .avatar-border { box-shadow: 0 8px 30px rgba(34,41,47,0.08); border-radius: 18px; }
+
+    .avatar-border {
+      box-shadow: 0 10px 40px rgba(79,129,255,.18);
+      border-radius: 22px;
+    }
   </style>
 </head>
 
@@ -64,7 +61,7 @@
   <!-- HERO -->
   <main class="max-w-5xl mx-auto px-6 md:px-8">
     <section class="grid grid-cols-1 md:grid-cols-2 items-center gap-8 mt-6">
-      <!-- Left: text -->
+
       <div class="py-8">
         <h1 class="text-4xl md:text-5xl font-heading leading-tight">
           I’m <span class="text-primary">Manisha Makvana</span>,
@@ -72,38 +69,30 @@
         </h1>
 
         <p class="mt-6 text-slate-600 max-w-xl">
-          Building smart, scalable web apps using Laravel, Tailwind & MySQL.
-          I plan, build, and deploy real projects — LMS, LIMS and Loan systems — with clean architecture and practical deployment experience.
+          I build smart, scalable web apps using Laravel, Tailwind CSS, and MySQL.
+          Passionate about clean backend architecture, API development, and real deployments.
         </p>
 
         <div class="mt-6 flex gap-4">
-          <a href="#projects" class="btn-soft inline-block bg-primary text-white px-5 py-3 rounded-md shadow-md">View My Work</a>
-          <a href="#contact" class="btn-soft inline-block border border-slate-300 px-5 py-3 rounded-md">Contact Me</a>
-        </div>
-
-        <!-- small badges -->
-        <div class="flex flex-wrap gap-2 mt-6">
-          <span class="text-xs px-3 py-1 bg-white glass rounded-full text-slate-700">Laravel</span>
-          <span class="text-xs px-3 py-1 bg-white glass rounded-full text-slate-700">Tailwind CSS</span>
-          <span class="text-xs px-3 py-1 bg-white glass rounded-full text-slate-700">MySQL</span>
-          <span class="text-xs px-3 py-1 bg-white glass rounded-full text-slate-700">Git</span>
+          <a href="#projects" class="btn-soft bg-primary text-white px-5 py-3 rounded-md shadow-md">View My Work</a>
+          <a href="#contact" class="btn-soft border border-slate-300 px-5 py-3 rounded-md">Contact Me</a>
         </div>
       </div>
 
-      <!-- Right: avatar -->
+      <!-- NEW AVATAR -->
       <div class="flex justify-center md:justify-end">
-        <!-- Replace assets/avatar.png with your anime-style avatar -->
-        <img src="assets/avatar.png" alt="Manisha avatar" class="w-72 md:w-80 avatar-border" />
+        <img src="assets/manisha-avatar.png" alt="Manisha avatar" class="w-80 md:w-[22rem] avatar-border" />
       </div>
+
     </section>
 
     <!-- ABOUT -->
     <section id="about" class="mt-16 bg-white rounded-2xl shadow-sm p-8">
       <h2 class="text-2xl font-heading">About Me</h2>
       <p class="mt-4 text-slate-600 max-w-3xl leading-relaxed">
-        I’m Manisha Makvana, a passionate Laravel Developer currently working at Endunuro.
-        I’ve built real-world applications like an LMS, LIMS, and Loan Query System — handling backend logic, authentication, and deployment.
-        My workflow blends AI-assisted planning with clean Laravel architecture and reliable deployments.
+        I’m Manisha Makvana, a Laravel Developer currently working at Endunuro.
+        I’ve built real-world applications like LMS, Loan Query System, and LIMS dashboards.
+        My workflow blends AI-assisted coding with structured Laravel architecture and reliable deployment.
       </p>
     </section>
 
@@ -118,94 +107,29 @@
         <span class="px-4 py-2 rounded-full bg-white glass">JavaScript</span>
         <span class="px-4 py-2 rounded-full bg-white glass">Git & GitHub</span>
         <span class="px-4 py-2 rounded-full bg-white glass">Hostinger Deployment</span>
-        <span class="px-4 py-2 rounded-full bg-white glass">AI Tools (Cursor, ChatGPT)</span>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="mt-12">
-      <h3 class="text-2xl font-heading">Selected Projects</h3>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <!-- Project 1 -->
-        <article class="p-6 bg-white rounded-2xl shadow-sm flex gap-4">
-          <img src="assets/project-lms.png" alt="LMS screenshot" class="w-36 h-24 object-cover rounded-md" />
-          <div>
-            <h4 class="font-semibold text-lg">Learning Management System (LMS)</h4>
-            <p class="text-sm text-slate-600 mt-2">Laravel-based LMS with course tracking, Google login, and OTP authentication.</p>
-            <div class="mt-3 flex gap-3">
-              <a href="https://lms.z2m.org" target="_blank" class="text-sm inline-block px-3 py-2 rounded-md border border-slate-200">Live Demo</a>
-              <a href="https://github.com/ManishaMakvana/lms.z2m.org" target="_blank" class="text-sm inline-block px-3 py-2 rounded-md bg-primary text-white">GitHub</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 2 -->
-        <article class="p-6 bg-white rounded-2xl shadow-sm flex gap-4">
-          <img src="assets/project-lims.png" alt="LIMS screenshot" class="w-36 h-24 object-cover rounded-md" />
-          <div>
-            <h4 class="font-semibold text-lg">LIMS (Laboratory Info. Management)</h4>
-            <p class="text-sm text-slate-600 mt-2">Role-based access, admin dashboard and data visualizations.</p>
-            <div class="mt-3 flex gap-3">
-              <a href="https://lims.3scratch.com" target="_blank" class="text-sm inline-block px-3 py-2 rounded-md border border-slate-200">Live Demo</a>
-              <a href="https://github.com/ManishaMakvana/lims.3scratch.com" target="_blank" class="text-sm inline-block px-3 py-2 rounded-md bg-primary text-white">GitHub</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 3 -->
-        <article class="p-6 bg-white rounded-2xl shadow-sm flex gap-4">
-          <img src="assets/project-loan.png" alt="Loan system screenshot" class="w-36 h-24 object-cover rounded-md" />
-          <div>
-            <h4 class="font-semibold text-lg">Loan Query System</h4>
-            <p class="text-sm text-slate-600 mt-2">System to manage loan queries & applicant flows. Backend + admin features.</p>
-            <div class="mt-3 flex gap-3">
-              <a href="#" class="text-sm inline-block px-3 py-2 rounded-md border border-slate-200">Demo</a>
-              <a href="https://github.com/ManishaMakvana" target="_blank" class="text-sm inline-block px-3 py-2 rounded-md bg-primary text-white">GitHub</a>
-            </div>
-          </div>
-        </article>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact" class="mt-12 mb-20 bg-white rounded-2xl p-8">
       <h3 class="text-2xl font-heading">Contact</h3>
-      <p class="mt-3 text-slate-600">Interested in working together? Reach me at</p>
+      <p class="mt-3 text-slate-600">Interested in working together?</p>
 
       <div class="mt-4 flex flex-col md:flex-row md:items-center gap-4">
         <a class="inline-flex items-center gap-2 px-4 py-3 rounded-md border border-slate-200" href="mailto:manishamakvana@gmail.com">
-          <!-- email icon (simple) -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 12l-4-3-4 3M4 6h16v12H4z"/></svg>
-          manishamakvana@gmail.com
+          Email: manishamakvana@gmail.com
         </a>
-
-        <div class="flex gap-3">
-          <a href="https://github.com/ManishaMakvana" target="_blank" class="px-4 py-3 rounded-md border border-slate-200 inline-flex items-center gap-2">
-            GitHub
-          </a>
-          <a href="#" class="px-4 py-3 rounded-md border border-slate-200 inline-flex items-center gap-2">LinkedIn</a>
-        </div>
       </div>
     </section>
   </main>
 
   <footer class="text-center py-6 text-sm text-slate-500">
-    © <span id="year"></span> Manisha Makvana — Built with ❤️ using TailwindCSS
+    © <span id="year"></span> Manisha Makvana
   </footer>
 
   <script>
-    // small scripts
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', function(e){
-        e.preventDefault();
-        const t = document.querySelector(this.getAttribute('href'));
-        if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
-      })
-    });
   </script>
+
 </body>
 </html>
