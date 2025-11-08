@@ -117,13 +117,15 @@
       <span id="brandName" class="font-heading text-[15px] tracking-tight">Manisha Makvana</span>
     </div>
 
-    <nav class="hidden md:flex gap-7 text-sm">
-      <a class="hover:text-primary" href="#about">About</a>
-      <a class="hover:text-primary" href="#skills">Skills</a>
-      <a class="hover:text-primary" href="#projects">Projects</a>
-      <a class="hover:text-primary" href="#contact">Contact</a>
-      <button id="themeBtn" class="ml-2 btn btn-o">🌞 Daylight</button>
-    </nav>
+    <div class="flex items-center gap-3">
+      <nav class="hidden md:flex gap-7 text-sm">
+        <a class="hover:text-primary" href="#about">About</a>
+        <a class="hover:text-primary" href="#skills">Skills</a>
+        <a class="hover:text-primary" href="#projects">Projects</a>
+        <a class="hover:text-primary" href="#contact">Contact</a>
+      </nav>
+      <button id="themeBtn" class="btn btn-o text-sm px-4 py-2 md:ml-2">🌞 Daylight</button>
+    </div>
   </header>
 
   <!-- HERO -->
@@ -194,25 +196,35 @@
     <section id="projects" class="mt-14">
       <h3 class="font-heading text-3xl text-center">Projects</h3>
 
-      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 justify-items-center">
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 justify-items-center">
         <!-- 1 -->
         <article class="card p-6" id="p1">
           <h4 class="font-semibold text-lg">Learning Management System (LMS)</h4>
           <p class="mt-2 text-sm text-slate-600">
             A platform for managing courses, students, and learning progress.
           </p>
-           <a class="mt-4 inline-block text-primary font-medium" target="_blank"
-              href="https://github.com/ManishaMakvana">GitHub →</a>
+          <a class="mt-4 inline-block text-primary font-medium" target="_blank"
+             href="https://github.com/ManishaMakvana">GitHub →</a>
         </article>
 
         <!-- 2 -->
         <article class="card p-6" id="p2">
-          <h4 class="font-semibold text-lg">Loan Query System</h4>
+          <h4 class="font-semibold text-lg">Loan Inquiry System</h4>
           <p class="mt-2 text-sm text-slate-600">
-            A system to manage loan requests and workflow tracking.
+            A system to manage loan inquiries and workflow tracking.
           </p>
-           <a class="mt-4 inline-block text-primary font-medium" target="_blank"
-              href="https://github.com/ManishaMakvana">GitHub →</a>
+          <a class="mt-4 inline-block text-primary font-medium" target="_blank"
+             href="https://github.com/ManishaMakvana">GitHub →</a>
+        </article>
+
+        <!-- 3 -->
+        <article class="card p-6" id="p3">
+          <h4 class="font-semibold text-lg">YouTube Video Downloader</h4>
+          <p class="mt-2 text-sm text-slate-600">
+            A utility to grab YouTube videos quickly with multiple quality options.
+          </p>
+          <a class="mt-4 inline-block text-primary font-medium" target="_blank"
+             href="https://github.com/ManishaMakvana/youtube-video-downloader">GitHub →</a>
         </article>
 
       </div>
