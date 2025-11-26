@@ -5,6 +5,26 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Manisha Makvana — Laravel & Web Developer</title>
 
+<!-- SEO Meta -->
+<meta name="description" content="Laravel Developer — building modern applications with Laravel, Tailwind, MySQL, AI-powered workflows, and clean UI." />
+
+<!-- Social Preview -->
+<meta property="og:title" content="Manisha Makvana — Laravel Developer" />
+<meta property="og:description" content="Laravel, Tailwind, MySQL, AI-assisted development, and clean modern UI." />
+<meta property="og:image" content="assets/og-preview.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://manishamakvana.github.io/" />
+
+<!-- LinkedIn Card -->
+<meta name="linkedin:card" content="summary_large_image" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="assets/og-preview.png" />
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+
 <!-- Tailwind (ok for quick static hosting like GitHub Pages) -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -39,7 +59,7 @@
 
   /* --- Backgrounds ------------------------------------------------------ */
   .day-gradient   { background: radial-gradient(1200px 700px at -10% -10%, #ECF3FF 0%, transparent 60%),
-                               linear-gradient(160deg, var(--day1) 0%, var(--day2) 60%); }
+                               linear-gradient(160deg, #e0e9ff 0%, #f9e6ff 60%); }
   .night-gradient { background: radial-gradient(1200px 700px at 110% -20%, rgba(179,136,255,.15) 0%, transparent 55%),
                                linear-gradient(160deg, var(--night1) 0%, var(--night2) 70%); }
 
@@ -51,6 +71,30 @@
   /* Stars canvas never blocks scrolling */
   #stars, #glowDots {
     position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  }
+
+  /* Floating particles */
+  .floating-particle {
+    position: fixed; z-index: 0; pointer-events: none;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(160,160,255,0.6), rgba(160,160,255,0.2));
+    animation: floatParticle 20s ease-in-out infinite;
+  }
+  @keyframes floatParticle {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    25% { transform: translate(30px, -50px) scale(1.2); opacity: 0.8; }
+    50% { transform: translate(-20px, -100px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(40px, -60px) scale(1.1); opacity: 0.7; }
+  }
+
+  /* Section title sparkles */
+  .section-sparkle {
+    display: inline-block; margin-left: 8px;
+    animation: sparkle 3s ease-in-out infinite;
+  }
+  @keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+    50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
   }
 
   /* Blurry glow orbs (blue + purple) */
@@ -69,10 +113,11 @@
   /* Cards + chips */
   .card {
     @apply rounded-3xl bg-white/90 backdrop-blur border border-white/70 shadow-soft;
+    box-shadow: 0 0 40px rgba(160,160,255,0.3), 0 25px 60px rgba(109,139,255,.18);
   }
   .card-night {
     background: rgba(18,23,50,.45); border: 1px solid rgba(255,255,255,.08);
-    box-shadow: 0 18px 40px rgba(7,10,25,.55);
+    box-shadow: 0 0 40px rgba(160,160,255,0.2), 0 18px 40px rgba(7,10,25,.55);
   }
   .chip {
     @apply px-4 py-2 rounded-full text-sm font-medium bg-white/80 border border-white/70 backdrop-blur;
@@ -85,13 +130,14 @@
   .btn-p  { @apply text-white; background: linear-gradient(135deg, #6D8BFF, #8AA5FF); }
   .btn-o  { @apply border border-primary/40 text-primary; }
   .btn:hover  { transform: translateY(-2px); }
-  .btn-p:hover{ box-shadow: 0 18px 40px rgba(109,139,255,.35); }
-  .btn-o:hover{ background: #6D8BFF; color: white; box-shadow: 0 18px 40px rgba(109,139,255,.35); }
+  .btn-p:hover{ box-shadow: 0 0 40px rgba(160,160,255,0.3), 0 18px 40px rgba(109,139,255,.35); }
+  .btn-o:hover{ background: #6D8BFF; color: white; box-shadow: 0 0 40px rgba(160,160,255,0.3), 0 18px 40px rgba(109,139,255,.35); }
 
   /* Avatar frame */
   .avatar-frame {
     background: linear-gradient(145deg, #fff, #eef1ff);
-    border-radius: 28px; padding: 18px; box-shadow: 0 22px 60px rgba(109,139,255,.22);
+    border-radius: 28px; padding: 18px; 
+    box-shadow: 0 0 40px rgba(160,160,255,0.3), 0 22px 60px rgba(109,139,255,.22);
   }
   .avatar-frame-night {
     background: linear-gradient(145deg, rgba(26,32,69,.9), rgba(38,46,92,.9));
@@ -100,15 +146,93 @@
 
   /* Safe area above the fixed backgrounds */
   main, header, footer { position: relative; z-index: 1; }
+
+  /* Scroll to top button */
+  .scroll-to-top {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, #6D8BFF, #8AA5FF);
+    color: white; border: none; cursor: pointer;
+    box-shadow: 0 0 40px rgba(160,160,255,0.3), 0 4px 12px rgba(0,0,0,.15);
+    opacity: 0; visibility: hidden; transition: all .3s ease;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
+  }
+  .scroll-to-top.visible { opacity: 1; visibility: visible; }
+  .scroll-to-top:hover { transform: translateY(-4px); box-shadow: 0 0 50px rgba(160,160,255,0.4); }
+
+  /* Intersection animations */
+  .fade-in-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in-up.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* Mobile hamburger menu */
+  .mobile-nav {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,.95); backdrop-filter: blur(10px);
+    z-index: 999; opacity: 0; visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+  }
+  .mobile-nav.open { opacity: 1; visibility: visible; display: flex; }
+  .mobile-nav-content {
+    width: 100%; padding: 6rem 2rem 2rem; display: flex; flex-direction: column; gap: 2rem;
+  }
+  .mobile-nav a {
+    font-size: 1.25rem; font-weight: 600; color: #334155;
+    padding: 0.75rem 1rem; border-radius: 0.75rem;
+    transition: background .2s ease;
+  }
+  .mobile-nav a:hover { background: rgba(109,139,255,.1); }
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    width: 28px; height: 28px; cursor: pointer; z-index: 1000;
+  }
+  .hamburger span {
+    width: 100%; height: 3px; background: currentColor;
+    border-radius: 2px; transition: all .3s ease;
+  }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+  @media (max-width: 767px) {
+    .hamburger { display: flex; }
+    nav.hidden { display: none !important; }
+  }
+
+  /* Loading spinner */
+  .loading-spinner {
+    position: fixed; inset: 0; z-index: 9999;
+    background: linear-gradient(160deg, #e0e9ff 0%, #f9e6ff 60%);
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity .5s ease, visibility .5s ease;
+  }
+  .loading-spinner.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .spinner {
+    width: 50px; height: 50px; border: 4px solid rgba(109,139,255,.2);
+    border-top-color: #6D8BFF; border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 
 <body class="min-h-screen text-slate-800 day-gradient transition-colors duration-500" data-theme="day">
+  <!-- Loading Spinner -->
+  <div id="loadingSpinner" class="loading-spinner">
+    <div class="spinner"></div>
+  </div>
+
   <!-- Blue + Purple glowing stars -->
   <canvas id="stars"></canvas>
   <canvas id="glowDots"></canvas>
   <div class="glow-orb orb-blue  orb-1"></div>
   <div class="glow-orb orb-purple orb-2"></div>
+  <!-- Floating particles -->
+  <div id="floatingParticles"></div>
 
   <!-- NAV -->
   <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
@@ -118,15 +242,33 @@
     </div>
 
     <div class="flex items-center gap-3">
+      <!-- Hamburger Menu Button -->
+      <button id="hamburgerBtn" class="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
       <nav class="hidden md:flex gap-7 text-sm">
-        <a class="hover:text-primary" href="#about">About</a>
-        <a class="hover:text-primary" href="#skills">Skills</a>
-        <a class="hover:text-primary" href="#projects">Projects</a>
-        <a class="hover:text-primary" href="#contact">Contact</a>
+        <a class="hover:text-primary" href="#about">About ✨</a>
+        <a class="hover:text-primary" href="#skills">Skills ⚔️</a>
+        <a class="hover:text-primary" href="#projects">Projects 🌸</a>
+        <a class="hover:text-primary" href="#contact">Contact 💌</a>
       </nav>
       <button id="themeBtn" class="btn btn-o text-sm px-4 py-2 md:ml-2">🌞 Daylight</button>
     </div>
   </header>
+
+  <!-- Mobile Navigation Menu -->
+  <div id="mobileNav" class="mobile-nav">
+    <div class="mobile-nav-content">
+      <a href="#about" onclick="closeMobileNav()">About ✨</a>
+      <a href="#skills" onclick="closeMobileNav()">Skills ⚔️</a>
+      <a href="#projects" onclick="closeMobileNav()">Projects 🌸</a>
+      <a href="#contact" onclick="closeMobileNav()">Contact 💌</a>
+      <button id="mobileThemeBtn" class="btn btn-o text-left">🌞 Daylight</button>
+    </div>
+  </div>
 
   <!-- HERO -->
   <main class="max-w-6xl mx-auto px-6">
@@ -134,22 +276,23 @@
       <!-- Left -->
       <div class="space-y-6">
         <span id="roleBadge" class="inline-flex items-center text-sm font-medium text-primary bg-primary/10 rounded-full px-4 py-1">
-          Laravel & Web Developer
+          AI-Powered Laravel Developer ✨
         </span>
 
         <h1 class="font-heading text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.15]">
-          I’m <span class="text-primary">Manisha Makvana</span>,<br class="hidden md:block">
-          crafting modern Laravel apps.
+          I'm <span class="text-primary">Manisha Makvana</span>,<br class="hidden md:block">
+          crafting magical Laravel worlds with clean code & AI.
         </h1>
 
         <p id="heroText" class="text-lg text-slate-600 max-w-xl">
-          I build scalable web apps with Laravel, Tailwind CSS, and MySQL —
-          focusing on clean architecture, polished UI, and reliable deployments.
+          I build smooth, modern web experiences using Laravel, Tailwind, and MySQL —
+          powered by AI assistance, clean structure, and thoughtful UI design.
+          My focus is clean architecture, soft visuals, and reliable deployments 🌙✨.
         </p>
 
         <div class="flex flex-wrap gap-4 pt-1">
-          <a href="#projects" class="btn btn-p">View My Work</a>
-          <a href="#contact" class="btn btn-o">Contact Me</a>
+          <a href="#projects" class="btn btn-p">View My Work 💫</a>
+          <a href="#contact" class="btn btn-o">Contact Me 🌙</a>
           <button id="audioBtn" class="btn btn-o">🎧 Turn On Vibes</button>
         </div>
       </div>
@@ -157,96 +300,163 @@
       <!-- Right -->
       <div class="flex justify-center md:justify-end">
         <div id="avatarFrame" class="avatar-frame">
-          <img src="assets/manisha-avatar.png" alt="Manisha anime avatar" class="w-60 sm:w-72 md:w-[21rem] rounded-[22px] object-cover" />
+          <img src="assets/manisha-avatar.png" alt="Manisha anime avatar" class="w-60 sm:w-72 md:w-[21rem] rounded-[22px] object-cover" loading="lazy" />
         </div>
       </div>
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="mt-14">
+    <section id="about" class="mt-14 fade-in-up">
       <div id="aboutCard" class="card px-7 md:px-10 py-9">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div class="max-w-3xl space-y-3">
-            <h2 class="font-heading text-3xl">About Me</h2>
+            <h2 class="font-heading text-3xl">About Me <span class="section-sparkle">🌟</span></h2>
             <p id="aboutText" class="leading-7 text-slate-600">
-              I’m a Laravel developer currently working at Endunuro. I’ve built real-world apps like an LMS,
-              a Loan Query System, and LIMS dashboards — handling backend logic, authentication, and deployment.
-              I like pairing **AI-assisted planning** with clean Laravel architecture to ship fast & reliably.
+              I'm a Laravel developer currently working at Eduneuro, where I craft real-world applications
+              like LMS platforms, loan inquiry dashboards, and workflow tools.
+              My style is simple: AI-powered development + calm, clean design + solid Laravel structure.
+              I love turning complex logic into soft, elegant solutions — just like a peaceful, organized workflow in code ✨.
             </p>
           </div>
-          <a href="#" class="btn btn-o">Download CV</a>
+          <a href="assets/manisha_mm_resume.pdf" download="Manisha_Makvana_Resume.pdf" class="btn btn-o">Download CV 🌸</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY HIRE ME -->
+    <section id="why-hire-me" class="mt-14 fade-in-up">
+      <div class="card px-7 md:px-10 py-9">
+        <h2 class="font-heading text-3xl mb-6">Why Hire Me? <span class="section-sparkle">⭐</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">✨</span>
+            <p class="leading-7 text-slate-600">
+              I build real-world web apps that are stable, secure, and easy to use.
+            </p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">💻</span>
+            <p class="leading-7 text-slate-600">
+              I write clean, organized, maintainable code in Laravel, JavaScript, and Tailwind CSS.
+            </p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">⚡</span>
+            <p class="leading-7 text-slate-600">
+              I convert requirements into working features quickly and efficiently.
+            </p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🏗️</span>
+            <p class="leading-7 text-slate-600">
+              I've built systems like LMS platforms, inquiry dashboards, and workflow tools.
+            </p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🎯</span>
+            <p class="leading-7 text-slate-600">
+              I'm detail-oriented, deadline-friendly, and always improving my craft.
+            </p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🎨</span>
+            <p class="leading-7 text-slate-600">
+              I enjoy creating smooth, user-first experiences with thoughtful UI design.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- SKILLS -->
-    <section id="skills" class="mt-12 text-center">
-      <h3 class="font-heading text-2xl">Skills</h3>
+    <section id="skills" class="mt-12 text-center fade-in-up">
+      <h3 class="font-heading text-2xl">My Skillset <span class="section-sparkle">⚔️</span><span class="section-sparkle">✨</span></h3>
       <div id="skillsWrap" class="mt-5 flex flex-wrap justify-center gap-3">
-        <span class="chip">Laravel</span>
-        <span class="chip">PHP</span>
-        <span class="chip">MySQL</span>
-        <span class="chip">Tailwind CSS</span>
-        <span class="chip">Git & GitHub</span>
-        <span class="chip">Hostinger Deployment</span>
+        <span class="chip">Laravel ⚡</span>
+        <span class="chip">PHP 🐱‍👤</span>
+        <span class="chip">MySQL 💾</span>
+        <span class="chip">Tailwind CSS 🌈</span>
+        <span class="chip">Git & GitHub 🐙</span>
+        <span class="chip">Hostinger Deployment 🚀</span>
+        <span class="chip">AI Tools (ChatGPT, Cursor) 🧠✨</span>
       </div>
     </section>
 
     <!-- PROJECTS -->
-    <section id="projects" class="mt-14">
-      <h3 class="font-heading text-3xl text-center">Projects</h3>
+    <section id="projects" class="mt-14 fade-in-up">
+      <h3 class="font-heading text-3xl text-center">My Featured Creations <span class="section-sparkle">✨</span></h3>
 
       <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 justify-items-center">
         <!-- 1 -->
         <article class="card p-6" id="p1">
-          <h4 class="font-semibold text-lg">Learning Management System (LMS)</h4>
+          <h4 class="font-semibold text-lg">Learning Management System (LMS) 🌸</h4>
           <p class="mt-2 text-sm text-slate-600">
-            A platform for managing courses, students, and learning progress.
+            A clean, intuitive LMS built to guide learners smoothly through their journey
+            — inspired by soft anime pacing and organized storytelling.
           </p>
-          <a class="mt-4 inline-block text-primary font-medium" target="_blank"
-             href="https://github.com/ManishaMakvana">GitHub →</a>
+          <span class="mt-4 inline-block text-primary font-medium opacity-60 cursor-not-allowed">Private Repo 🔒</span>
         </article>
 
         <!-- 2 -->
         <article class="card p-6" id="p2">
-          <h4 class="font-semibold text-lg">Loan Inquiry System</h4>
+          <h4 class="font-semibold text-lg">Loan Inquiry System 💫</h4>
           <p class="mt-2 text-sm text-slate-600">
-            A system to manage loan inquiries and workflow tracking.
+            A workflow tool designed for clarity and ease —
+            helping users track loan progress like following an adventure quest.
           </p>
-          <a class="mt-4 inline-block text-primary font-medium" target="_blank"
-             href="https://github.com/ManishaMakvana">GitHub →</a>
+          <span class="mt-4 inline-block text-primary font-medium opacity-60 cursor-not-allowed">Private Repo 🔒</span>
         </article>
 
         <!-- 3 -->
         <article class="card p-6" id="p3">
-          <h4 class="font-semibold text-lg">YouTube Video Downloader</h4>
+          <h4 class="font-semibold text-lg">YouTube Video Downloader 🎧✨</h4>
           <p class="mt-2 text-sm text-slate-600">
-            A utility to grab YouTube videos quickly with multiple quality options.
+            A Python script for downloading YouTube videos and playlists in bulk.
+            Setup in VS Code, download entire playlists, and view your locally saved videos.
+            Fast, lightweight, and efficient like a calm ninja move.
           </p>
-          <a class="mt-4 inline-block text-primary font-medium" target="_blank"
-             href="https://github.com/ManishaMakvana/youtube-video-downloader">GitHub →</a>
+          <a class="mt-4 inline-block text-primary font-medium hover:underline" target="_blank" rel="noopener noreferrer"
+             href="https://github.com/ManishaMakvana/youtube_video_downloader">View on GitHub →</a>
         </article>
 
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="mt-16 mb-20">
+    <section id="contact" class="mt-16 mb-20 fade-in-up">
       <div id="contactCard" class="card px-7 md:px-10 py-10 text-center">
-        <h3 class="font-heading text-3xl">Contact</h3>
-        <p class="mt-3 text-slate-600">Interested in working together?</p>
-         <div class="mt-6 flex justify-center">
-           <span class="inline-flex items-center gap-2 px-5 py-4 rounded-2xl border border-primary/30 bg-white/70 text-slate-700 backdrop-blur">
-             😊 Contact coming soon
-           </span>
-         </div>
+        <h3 class="font-heading text-3xl">Let's Connect <span class="section-sparkle">🌙</span><span class="section-sparkle">✨</span></h3>
+        <p class="mt-3 text-slate-600">Want to collaborate on something magical?<br>Let's build clean, creative, anime-inspired web experiences together 💫.</p>
+        <div class="flex flex-wrap justify-center gap-4 mt-6">
+          <a href="https://github.com/ManishaMakvana" target="_blank" rel="noopener noreferrer"
+             class="px-4 py-2 rounded-xl border border-blue-500 text-blue-600 hover:bg-blue-100 hover:shadow-[0_0_40px_rgba(160,160,255,0.3)] transition-all">
+             GitHub 🐙
+          </a>
+          <a href="https://www.linkedin.com/in/manisha-makvana/" target="_blank" rel="noopener noreferrer"
+             class="px-4 py-2 rounded-xl border border-blue-500 text-blue-600 hover:bg-blue-100 hover:shadow-[0_0_40px_rgba(160,160,255,0.3)] transition-all">
+             LinkedIn 💼
+          </a>
+          <a href="assets/manisha_mm_resume.pdf" download="Manisha_Makvana_Resume.pdf"
+             class="px-4 py-2 rounded-xl border border-purple-500 text-purple-600 hover:bg-purple-100 hover:shadow-[0_0_40px_rgba(179,136,255,0.3)] transition-all">
+             Download Resume 📄
+          </a>
+          <a href="https://manishamakvana.github.io" target="_blank" rel="noopener noreferrer"
+             class="px-4 py-2 rounded-xl border border-orange-500 text-orange-600 hover:bg-orange-100 hover:shadow-[0_0_40px_rgba(255,165,0,0.3)] transition-all">
+             Portfolio 🔗
+          </a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="text-center py-6 text-sm opacity-80">
-    © <span id="year"></span> Manisha Makvana — Built with ✨ Anime Energy
+    © <span id="year"></span> Manisha Makvana — Built with love, AI, and anime energy ✨🪄
   </footer>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top" title="Scroll to top">
+    ↑
+  </button>
 
   <!-- LOCAL audio only. Put a small loop at /assets/ambient.mp3 -->
   <audio id="ambient" src="assets/ambient.mp3" preload="none" loop></audio>
@@ -302,6 +512,44 @@ function drawStars() {
 }
 drawStars();
 addEventListener('resize', () => { clearTimeout(window._rst); window._rst=setTimeout(drawStars,150)});
+
+// Hide loading spinner after initialization
+setTimeout(() => {
+  const spinner = $('#loadingSpinner');
+  if(spinner) spinner.classList.add('hidden');
+}, 500);
+
+/* ---------------- Floating Particles -------------------- */
+function createFloatingParticles() {
+  const container = $('#floatingParticles');
+  if (!container) return;
+  
+  // Clear existing particles
+  container.innerHTML = '';
+  
+  // Create 15-20 floating particles
+  const particleCount = 18;
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'floating-particle';
+    
+    // Random starting position
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    
+    // Random animation delay for variety
+    particle.style.animationDelay = Math.random() * 5 + 's';
+    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+    
+    // Random size variation
+    const size = 4 + Math.random() * 6;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    
+    container.appendChild(particle);
+  }
+}
+createFloatingParticles();
 
 /* ---------------- Theme (Day/Night) ---------------- */
 function applyTheme(mode){
@@ -371,6 +619,73 @@ audioBtn.addEventListener('click', async ()=>{
     audioBtn.textContent = '⚠️ Tap again to allow sound';
   }
 });
+
+/* ---------------- Scroll to Top Button -------------------- */
+const scrollToTopBtn = $('#scrollToTop');
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 300) {
+    scrollToTopBtn.classList.add('visible');
+  } else {
+    scrollToTopBtn.classList.remove('visible');
+  }
+});
+scrollToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ---------------- Intersection Observer (Fade-in Animations) -------------------- */
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+// Observe all sections with fade-in-up class
+document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+/* ---------------- Mobile Hamburger Menu -------------------- */
+const hamburgerBtn = $('#hamburgerBtn');
+const mobileNav = $('#mobileNav');
+const mobileThemeBtn = $('#mobileThemeBtn');
+
+function toggleMobileNav() {
+  hamburgerBtn.classList.toggle('active');
+  mobileNav.classList.toggle('open');
+  body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+}
+
+function closeMobileNav() {
+  hamburgerBtn.classList.remove('active');
+  mobileNav.classList.remove('open');
+  body.style.overflow = '';
+}
+
+hamburgerBtn.addEventListener('click', toggleMobileNav);
+
+// Close mobile nav when clicking outside
+mobileNav.addEventListener('click', (e) => {
+  if (e.target === mobileNav) closeMobileNav();
+});
+
+// Close mobile nav on window resize (desktop view)
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 767) closeMobileNav();
+});
+
+// Mobile theme button
+if(mobileThemeBtn) {
+  mobileThemeBtn.addEventListener('click', () => {
+    applyTheme(body.dataset.theme === 'day' ? 'night' : 'day');
+    closeMobileNav();
+  });
+}
 </script>
 </body>
 </html>
